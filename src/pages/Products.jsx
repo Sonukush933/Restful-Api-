@@ -11,11 +11,12 @@ const Products = () => {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const data = await getProduct();
         setProducts(data.products);
       } catch (error) {
@@ -38,7 +39,7 @@ const Products = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch,sortBy]);
+  }, [debouncedSearch, sortBy,selectedCategory]);
 
   //Loading or Error
   if (loading) {
@@ -60,9 +61,16 @@ const Products = () => {
   }
 
   //Debounced
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
-  );
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(debouncedSearch.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === '' || product.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   let sortedProducts = [...filteredProducts];
   if (sortBy === 'price-low') {
@@ -81,6 +89,8 @@ const Products = () => {
     sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
   }
 
+  const categories = [...new Set(products.map((product) => product.category))];
+
   //Pagination
   const productsPerPage = 6;
   const lastProductIndex = currentPage * productsPerPage; //1 * 6 = 6
@@ -89,6 +99,7 @@ const Products = () => {
     firstProductIndex,
     lastProductIndex,
   ); // (0,6) = 0 se 6 show
+
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage); // 30 / 6 = 5 page total
 
   return (
@@ -132,6 +143,21 @@ const Products = () => {
               </div>
             )}
           </div>
+
+          <select
+            className="category-select"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+
           <select
             value={sortBy}
             className="sort-select"
