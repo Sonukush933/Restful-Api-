@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getProduct } from '../api/productApi';
+import { useNavigate } from 'react-router-dom';
 import './Products.css';
 
 const Products = () => {
+
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -16,7 +20,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 500));
         const data = await getProduct();
         setProducts(data.products);
       } catch (error) {
@@ -29,6 +33,8 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+
+
   //Debounced
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,7 +45,7 @@ const Products = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch, sortBy,selectedCategory]);
+  }, [debouncedSearch, sortBy, selectedCategory]);
 
   //Loading or Error
   if (loading) {
@@ -177,7 +183,11 @@ const Products = () => {
             <h2 className="not-found">No Product Found</h2>
           ) : (
             currentProducts.map((product) => (
-              <div className="product-card" key={product.id}>
+              <div 
+              className="product-card"
+               key={product.id}
+               onClick={() => navigate(`/products/${product.id}`)}
+               >
                 <img
                   className="product-image"
                   src={product.thumbnail}
@@ -188,8 +198,6 @@ const Products = () => {
                   <span className="product-category">{product.category}</span>
 
                   <h3 className="product-title">{product.title}</h3>
-
-              
 
                   <p className="product-description">{product.description}</p>
 
