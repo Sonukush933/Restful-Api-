@@ -10,11 +10,12 @@ const Products = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         const data = await getProduct();
         setProducts(data.products);
       } catch (error) {
@@ -37,7 +38,7 @@ const Products = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch]);
+  }, [debouncedSearch,sortBy]);
 
   //Loading or Error
   if (loading) {
@@ -63,11 +64,28 @@ const Products = () => {
     product.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
   );
 
+  let sortedProducts = [...filteredProducts];
+  if (sortBy === 'price-low') {
+    sortedProducts.sort((a, b) => a.price - b.price);
+  }
+  if (sortBy === 'price-high') {
+    sortedProducts.sort((a, b) => b.price - a.price);
+  }
+  if (sortBy === 'rating') {
+    sortedProducts.sort((a, b) => b.rating - a.rating);
+  }
+  if (sortBy === 'name-asc') {
+    sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+  }
+  if (sortBy === 'name-desc') {
+    sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
+  }
+
   //Pagination
   const productsPerPage = 6;
   const lastProductIndex = currentPage * productsPerPage; //1 * 6 = 6
   const firstProductIndex = lastProductIndex - productsPerPage; // 6 - 6 = 0
-  const currentProducts = filteredProducts.slice(
+  const currentProducts = sortedProducts.slice(
     firstProductIndex,
     lastProductIndex,
   ); // (0,6) = 0 se 6 show
@@ -80,37 +98,52 @@ const Products = () => {
           <h1>Products</h1>
           <h2>Total Products: {products.length}</h2>
         </div>
-        <div className="search-container">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="search product here"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setShowSuggestions(true);
-            }}
-          />
-          {search && (
-            <button className="clear-btn" onClick={() => setSearch('')}>
-              ✕
-            </button>
-          )}
-          {search && showSuggestions && (
-            <div className="suggestions">
-              {filteredProducts.slice(0, 5).map((product) => (
-                <p
-                  key={product.id}
-                  onClick={() => {
-                    setSearch(product.title);
-                    setShowSuggestions(false);
-                  }}
-                >
-                  {product.title}
-                </p>
-              ))}
-            </div>
-          )}
+
+        <div className="filter-section">
+          <div className="search-wrapper">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="search product here"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setShowSuggestions(true);
+              }}
+            />
+            {search && (
+              <button className="clear-btn" onClick={() => setSearch('')}>
+                ✕
+              </button>
+            )}
+            {search && showSuggestions && (
+              <div className="suggestions">
+                {filteredProducts.slice(0, 5).map((product) => (
+                  <p
+                    key={product.id}
+                    onClick={() => {
+                      setSearch(product.title);
+                      setShowSuggestions(false);
+                    }}
+                  >
+                    {product.title}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+          <select
+            value={sortBy}
+            className="sort-select"
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="">Default</option>
+            <option value="price-low">Price Low to High</option>
+            <option value="price-high">Price High to Low</option>
+            <option value="rating">Rating High to Low</option>
+            <option value="name-asc">Name A-Z</option>
+            <option value="name-desc">Name Z-A</option>
+          </select>
         </div>
 
         <div className="products-container">
