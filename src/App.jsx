@@ -7,7 +7,7 @@ import ProductDetails from './pages/Details/ProductDetails';
 const App = () => {
   return (
     <Routes>
-      <Route path="/products" element={<Products />} />
+      <Route path="/" element={<Products />} />
       <Route path="/products/:id" element={<ProductDetails />} />
     </Routes>
   );

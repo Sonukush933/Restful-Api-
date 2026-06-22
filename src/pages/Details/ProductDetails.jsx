@@ -41,7 +41,7 @@ if (error) {
 
         <button
           className="not-found-btn"
-          onClick={() => navigate('/products')}
+          onClick={() => navigate('/')}
         >
           ← Back to Products
         </button>
@@ -71,7 +71,7 @@ if (!product) {
 
   return (
     <>
-      <button className="back-btn" onClick={() => navigate('/products')}>
+      <button className="back-btn" onClick={() => navigate('/')}>
         ← Back to Products
       </button>
       <div className="details-container">
