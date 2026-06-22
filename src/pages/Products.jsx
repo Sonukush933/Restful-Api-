@@ -84,13 +84,16 @@ const Products = () => {
               ✕
             </button>
           )}
-          {search && showSuggestions &&  (
+          {search && showSuggestions && (
             <div className="suggestions">
               {filteredProducts.slice(0, 5).map((product) => (
-                <p key={product.id} onClick={() => {
+                <p
+                  key={product.id}
+                  onClick={() => {
                     setSearch(product.title);
                     setShowSuggestions(false);
-                    }}>
+                  }}
+                >
                   {product.title}
                 </p>
               ))}
@@ -110,11 +113,32 @@ const Products = () => {
                   alt={product.title}
                 />
 
-                <h3 className="product-title">{product.title}</h3>
+                <div className="product-info">
+                  <span className="product-category">{product.category}</span>
 
-                <p className="product-description">{product.description}</p>
+                  <h3 className="product-title">{product.title}</h3>
 
-                <h4 className="product-price">$ {product.price}</h4>
+                  <p className="product-brand">Brand: {product.brand}</p>
+
+                  <p className="product-description">{product.description}</p>
+
+                  <div className="product-rating-stock">
+                    <span>⭐ {product.rating}</span>
+                    <span
+                      className={product.stock > 0 ? 'in-stock' : 'out-stock'}
+                    >
+                      {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                    </span>
+                  </div>
+
+                  <div className="product-price-section">
+                    <h4 className="product-price">${product.price}</h4>
+
+                    <span className="product-discount">
+                      {product.discountPercentage}% OFF
+                    </span>
+                  </div>
+                </div>
               </div>
             ))
           )}

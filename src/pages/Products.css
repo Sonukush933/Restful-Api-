@@ -1,52 +1,147 @@
+/* ========================================
+   PRODUCTS GRID
+======================================== */
+
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 24px;
   padding: 20px;
 }
 
+/* ========================================
+   PRODUCT CARD
+======================================== */
+
 .product-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
   overflow: hidden;
-  padding: 15px;
-  transition: 0.3s;
+  padding: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
+
+/* ========================================
+   PRODUCT IMAGE
+======================================== */
 
 .product-image {
   width: 100%;
   height: 220px;
   object-fit: contain;
+  border-radius: 12px;
+}
+
+/* ========================================
+   PRODUCT INFO
+======================================== */
+
+.product-info {
+  margin-top: 14px;
+}
+
+.product-category {
+  display: inline-block;
+  background: #f5f5f5;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
 }
 
 .product-title {
   font-size: 18px;
-  margin-top: 10px;
+  font-weight: 600;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.product-brand {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
 }
 
 .product-description {
   color: #666;
   font-size: 14px;
+  line-height: 1.5;
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.product-price {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
+/* ========================================
+   RATING & STOCK
+======================================== */
+
+.product-rating-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0;
 }
+
+.in-stock {
+  color: #0a8f08;
+  font-weight: 600;
+}
+
+.out-stock {
+  color: #d62d20;
+  font-weight: 600;
+}
+
+/* ========================================
+   PRICE SECTION
+======================================== */
+
+.product-price-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.product-discount {
+  background: #e8f7e8;
+  color: #0a8f08;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ========================================
+   PAGE HEADER
+======================================== */
 
 .page-header {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.page-header h1 {
+  margin-bottom: 8px;
+}
+
+/* ========================================
+   SEARCH
+======================================== */
 
 .search-container {
   position: relative;
@@ -59,13 +154,15 @@
   width: 100%;
   padding: 12px 45px 12px 16px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
+  transition: 0.2s ease;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #333;
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
 }
 
 .clear-btn {
@@ -80,53 +177,91 @@
   padding: 4px;
 }
 
-.not-found {
-  text-align: center;
-  grid-column: 1 / -1;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 30px 0;
-}
-
-.pagination button {
-  padding: 8px 14px;
-  cursor: pointer;
-  border: 1px solid #979696;
-}
-
-.active-page {
-  background: black;
-  color: white;
-}
+/* ========================================
+   SEARCH SUGGESTIONS
+======================================== */
 
 .suggestions {
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
+  margin-top: 6px;
+
+  background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-top: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  border-radius: 10px;
+
   max-height: 250px;
   overflow-y: auto;
+
+  z-index: 100;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .suggestions p {
-  padding: 12px 16px;
   margin: 0;
+  padding: 12px 16px;
   cursor: pointer;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f3f3f3;
 }
+
 .suggestions p:hover {
-  background: #f5f5f5;
+  background: #f8f8f8;
 }
+
 .suggestions p:last-child {
   border-bottom: none;
+}
+
+/* ========================================
+   NO PRODUCTS
+======================================== */
+
+.not-found {
+  text-align: center;
+  grid-column: 1 / -1;
+  font-size: 22px;
+}
+
+/* ========================================
+   PAGINATION
+======================================== */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 0;
+}
+
+.pagination button {
+  min-width: 40px;
+  height: 40px;
+
+  border: 1px solid #d6d6d6;
+  background: #fff;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.active-page {
+  background: #000 !important;
+  color: #fff;
+  border-color: #000 !important;
 }
