@@ -265,3 +265,49 @@
   color: #fff;
   border-color: #000 !important;
 }
+
+/* ========================================
+   SKELETON LOADER
+======================================== */
+
+.skeleton-card {
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  background: #e5e5e5;
+}
+
+.skeleton-line {
+  height: 14px;
+  background: #e5e5e5;
+  margin-top: 12px;
+  border-radius: 6px;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+@keyframes shimmer {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.skeleton-image,
+.skeleton-line {
+  animation: shimmer 1.5s infinite;
+}

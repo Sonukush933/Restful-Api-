@@ -14,6 +14,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         const data = await getProduct();
         setProducts(data.products);
       } catch (error) {
@@ -40,7 +41,18 @@ const Products = () => {
 
   //Loading or Error
   if (loading) {
-    return <h4>Loading....</h4>;
+    return (
+      <div className="products-container">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div className="skeleton-card" key={index}>
+            <div className="skeleton-image"></div>
+            <div className="skeleton-line"></div>
+            <div className="skeleton-line short"></div>
+            <div className="skeleton-line"></div>
+          </div>
+        ))}
+      </div>
+    );
   }
   if (error) {
     return <h2>{error}</h2>;
