@@ -189,7 +189,7 @@ const Products = () => {
 
                   <h3 className="product-title">{product.title}</h3>
 
-                  <p className="product-brand">Brand: {product.brand}</p>
+              
 
                   <p className="product-description">{product.description}</p>
 

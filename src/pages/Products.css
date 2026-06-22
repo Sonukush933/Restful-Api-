@@ -54,13 +54,13 @@
   border-radius: 20px;
   font-size: 12px;
   text-transform: capitalize;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .product-title {
   font-size: 18px;
   font-weight: 600;
-  margin: 10px 0;
+  margin: 5px 0;
   line-height: 1.4;
 }
 
@@ -149,7 +149,8 @@
   align-items: flex-start;
   gap: 15px;
   flex-wrap: wrap;
-  margin: 20px 0;
+  margin: 20px 10px;
+  
 }
 
 .search-wrapper {
@@ -360,4 +361,113 @@
   outline: none;
   border-color: #000;
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+.sort-select,
+.category-select {
+  min-width: 220px;
+  height: 45px;
+  padding: 0 35px 0 12px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+/* Tablet */
+
+@media (max-width: 768px) {
+
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .product-card {
+    padding: 14px;
+  }
+
+  .product-image {
+    height: 180px;
+  }
+
+  .product-title {
+    font-size: 16px;
+  }
+
+  .product-price {
+    font-size: 20px;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+
+  .sort-select,
+  .category-select {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .products-container {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .product-card {
+    padding: 12px;
+  }
+
+  .product-image {
+    height: 160px;
+  }
+
+  .product-title {
+    font-size: 15px;
+  }
+
+  .product-description {
+    font-size: 13px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+
+  .product-rating-stock {
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .product-price-section {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .page-header h2 {
+    font-size: 18px;
+  }
+}
+
+/* Large Screens */
+
+@media (min-width: 1400px) {
+
+  .products-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
