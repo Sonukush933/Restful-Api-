@@ -112,8 +112,8 @@ const Products = () => {
     <>
       <div>
         <div className="page-header">
-          <h1>Products</h1>
-          <h2>Total Products: {products.length}</h2>
+          <h1>E-commerce</h1>
+          
         </div>
 
         <div className="filter-section">
