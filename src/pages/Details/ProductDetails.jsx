@@ -15,7 +15,7 @@ useEffect(() => {
     try {
 
       await new Promise((resolve) =>
-        setTimeout(resolve, 500)
+        setTimeout(resolve, 150)
       );
 
       const data = await getSingleProduct(id);
